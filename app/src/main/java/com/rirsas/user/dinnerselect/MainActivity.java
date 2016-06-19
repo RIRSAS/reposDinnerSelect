@@ -1,5 +1,11 @@
 package com.rirsas.user.dinnerselect;
 
+import com.rirsas.user.dinnerselect.ViewPagerAdapter;
+
+import android.content.Context;
+import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
+
 //import android.content.ContentValues;
 import android.content.Intent;
 //import android.database.Cursor;
@@ -15,7 +21,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.view.ViewPager;
+
 public class MainActivity extends AppCompatActivity {
+
+    ViewPager viewpager;
 
     Button button;
     Button buttonMoveToSetting;
@@ -26,9 +37,18 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+//        setContentView(R.layout.activity_main);
+
+        setContentView(R.layout.activity_main_for_viewpager);
+
+        viewpager = (ViewPager) findViewById(R.id.pager);
+        viewpager.setAdapter(
+                new ViewPagerAdapter(
+                        getSupportFragmentManager()));
 
         dbAdapter = new DBAdapter(getApplicationContext());
+
+        /*
         //final SQLiteDatabase db = helper.getWritableDatabase();
 
         button = (Button)findViewById(R.id.btnSelect);
@@ -66,10 +86,8 @@ public class MainActivity extends AppCompatActivity {
                 //Collections.shuffle(array);
                 //strResultText = array.get(0);
 
-        /*
-                Collections.shuffle(arrayList);
-                strResultText = arrayList.get(0);
-        */
+                // Collections.shuffle(arrayList);
+                // strResultText = arrayList.get(0);
 
                 Collections.shuffle(aList);
                 strResultText = aList.get(0);
@@ -117,6 +135,8 @@ public class MainActivity extends AppCompatActivity {
         dbAdapter.close();
 
         return arrayList;
+    }
+    */
     }
 }
 
