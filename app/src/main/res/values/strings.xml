@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">DinnerSelect</string>
+    <string name="title_activity_sub">Setting</string>
+    <string name="set_new_menu">Set New Menu</string>
+</resources>

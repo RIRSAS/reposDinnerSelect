@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!--ボタン未選択状態-->
+    <item android:state_pressed="false">
+        <shape android:shape="rectangle">
+            <!--背景色-->
+            <solid android:color="#e0ffff" />
+
+            <!--角の丸み-->
+            <corners android:radius="10dp" />
+
+            <!--枠線の太さ、色-->
+            <stroke
+                android:width="4dp"
+                android:color="#e0ffff"
+                />
+
+            <!--枠からテキストまでの距離-->
+            <padding
+                android:top="2dp"
+                android:bottom="2dp"
+                android:right="6dp"
+                android:left="6dp"
+                />
+        </shape>
+    </item>
+
+    <!--ボタン選択状態-->
+    <item android:state_pressed="true">
+        <shape android:shape="rectangle">
+            <!--背景色-->
+            <solid android:color="#7fffd4" />
+
+            <!--角の丸み-->
+            <corners android:radius="10dp" />
+
+            <!--枠線の太さ、色-->
+            <stroke
+                android:width="4dp"
+                android:color="#7fffd4"
+                />
+
+            <!--枠からテキストまでの距離-->
+            <padding
+                android:top="2dp"
+                android:bottom="2dp"
+                android:right="6dp"
+                android:left="6dp"
+                />
+        </shape>
+    </item>
+
+</selector>
+
