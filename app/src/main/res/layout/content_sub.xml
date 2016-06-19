@@ -13,16 +13,6 @@
     tools:showIn="@layout/activity_sub">
 
     <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Back to Main"
-        android:background="@drawable/frame_layout_button"
-        android:id="@+id/btnBackToMain"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        />
-
-    <Button
         android:layout_width="60dp"
         android:layout_height="wrap_content"
         android:text="+"
@@ -37,13 +27,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/lvMenu"
-        android:layout_below="@+id/btnBackToMain"
         android:layout_alignEnd="@+id/btnBackToMain"
         android:layout_above="@+id/btnAddMenu"
         android:background="@drawable/frame_layout_listview"
         android:layout_marginBottom="6dp"
-        android:layout_marginTop="6dp"
-        />
+        android:layout_below="@+id/textView1" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -55,12 +43,12 @@
         android:textAlignment="center"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true"
-        android:layout_above="@+id/lvMenu"
         android:layout_toStartOf="@+id/btnBackToMain"
         android:textIsSelectable="false"
         android:focusable="true"
         android:focusableInTouchMode="true"
-        android:gravity="center">
+        android:gravity="center"
+        android:layout_alignEnd="@+id/lvMenu">
         <requestFocus/>
     </TextView>
 

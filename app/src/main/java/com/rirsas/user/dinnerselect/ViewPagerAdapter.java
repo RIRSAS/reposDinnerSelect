@@ -32,6 +32,14 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter{
 
     @Override
     public CharSequence getPageTitle(int position){
-        return "Page" + position;
+
+        switch(position){
+            case 0:
+                return "メインページ";
+            default:
+                return "サブページ";
+        }
+
+//        return "Page" + position;
     }
 }

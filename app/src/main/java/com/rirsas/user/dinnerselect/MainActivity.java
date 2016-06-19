@@ -33,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
     TextView txtResult;
     static ArrayList<String> array = new ArrayList<>(Arrays.asList("ラーメン","餃子","丼物","肉"));
     static DBAdapter dbAdapter;
+    static Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +48,8 @@ public class MainActivity extends AppCompatActivity {
                         getSupportFragmentManager()));
 
         dbAdapter = new DBAdapter(getApplicationContext());
+
+        context = getApplicationContext();
 
         /*
         //final SQLiteDatabase db = helper.getWritableDatabase();
