@@ -47,10 +47,13 @@ public class viewpagerSubPage extends Fragment {
 
         final DBAdapter dbA = MainActivity.dbAdapter;
 
+        // ビューを形成したタイミングでリストビューの表示内容を更新する
         UpdateList(dbA,adapter);
 
+        // リストアダプターをビューへセット
         lvMenu.setAdapter(adapter);
 
+        // リスト上のメニュー名を長押しした場合の削除処理
         lvMenu.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id){
@@ -72,7 +75,8 @@ public class viewpagerSubPage extends Fragment {
                         }else{
                             AlertDialog.Builder child_alert = new AlertDialog.Builder(viewpagerSubPage.this.getActivity());
                             child_alert.setTitle("アラート");
-                            child_alert.setMessage("メニューは１つ以上必要です");
+                            // メニューを0個にしようとした
+                            child_alert.setMessage(getString(R.string.alert_need_one));
                             child_alert.setPositiveButton("OK",null);
                             child_alert.show();
                         }
@@ -113,12 +117,26 @@ public class viewpagerSubPage extends Fragment {
                     // Set to Array 20160609 chg
                     //tmpArray.add(strItem);
                     dbA.open();
-                    dbA.InsertRecord(strItem);
+                    if(dbA.CheckInsertable(strItem)){
+                        dbA.InsertRecord(strItem);
+                    } else {
+                        AlertDialog.Builder child_alert = new AlertDialog.Builder(viewpagerSubPage.this.getActivity());
+                        child_alert.setTitle("アラート");
+                        // 登録対象重複アラート
+                        child_alert.setMessage(getString(R.string.alert_duplicate));
+                        child_alert.setPositiveButton("OK",null);
+                        child_alert.show();
+                    }
                     dbA.close();
                     UpdateList(dbA,adapter);
                     txtAddItem.setText("");
                 } else {
-                    Toast.makeText(MainActivity.context, "Please Set Any Text!", Toast.LENGTH_SHORT).show();
+                    AlertDialog.Builder child_alert = new AlertDialog.Builder(viewpagerSubPage.this.getActivity());
+                    child_alert.setTitle("アラート");
+                    // 空欄登録アラート
+                    child_alert.setMessage(getString(R.string.alert_empty));
+                    child_alert.setPositiveButton("OK",null);
+                    child_alert.show();
                 }
             }
         });

@@ -2,4 +2,9 @@
     <string name="app_name">DinnerSelect</string>
     <string name="title_activity_sub">Setting</string>
     <string name="set_new_menu">Set New Menu</string>
+
+    <!--アラートメッセージ-->
+    <string name="alert_duplicate">そのメニューは既に登録されています</string>
+    <string name="alert_empty">メニューを空欄で登録することはできません</string>
+    <string name="alert_need_one">"メニューは１つ以上必要です"</string>
 </resources>

@@ -9,6 +9,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -94,11 +95,42 @@ public class DBAdapter{
 
         DateFormat yyyyMMddhhmm = new SimpleDateFormat("yyyy/MM/dd HH:mm");
 
-        Date dateNow = new Date();
-        ContentValues values = new ContentValues();
-        values.put("genre_name",genre_name);
-        values.put("created",yyyyMMddhhmm.format(dateNow));
-        db.insertOrThrow(TABLE_NAME,null,values);
+        Cursor c = GetAllRecord();
+
+        boolean flgDuplicate = false;
+
+        if(c.moveToFirst()){
+            do{
+                if(c.getString(c.getColumnIndex("genre_name")).equals(genre_name)){
+                    flgDuplicate = true;
+                }
+            }while(c.moveToNext());}
+
+        if(flgDuplicate==false){
+            Date dateNow = new Date();
+            ContentValues values = new ContentValues();
+            values.put("genre_name",genre_name);
+            values.put("created",yyyyMMddhhmm.format(dateNow));
+            db.insertOrThrow(TABLE_NAME,null,values);
+        }
+
+    }
+
+    public boolean CheckInsertable(String genre_name){
+
+        boolean isInsertable = true;
+
+        Cursor c = GetAllRecord();
+
+        if(c.moveToFirst()){
+            do{
+                if(c.getString(c.getColumnIndex("genre_name")).equals(genre_name)){
+                    isInsertable = false;
+                }
+            }while(c.moveToNext());}
+
+        return isInsertable;
+
     }
 
 }

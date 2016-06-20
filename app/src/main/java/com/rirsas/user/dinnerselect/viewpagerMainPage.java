@@ -74,11 +74,25 @@ public class viewpagerMainPage extends Fragment {
 
     //At Once
     private void AtOnce(DBAdapter dbadapter){
+        // 麺類
         dbadapter.InsertRecord("ラーメン");
-        dbadapter.InsertRecord("丼物");
-        dbadapter.InsertRecord("餃子");
-        dbadapter.InsertRecord("肉料理");
         dbadapter.InsertRecord("パスタ");
+        dbadapter.InsertRecord("うどん");
+        dbadapter.InsertRecord("そば");
+
+        // 丼もの
+        dbadapter.InsertRecord("牛丼");
+        dbadapter.InsertRecord("天丼");
+        dbadapter.InsertRecord("かつ丼");
+
+        // 肉類
+        dbadapter.InsertRecord("ハンバーグ");
+        dbadapter.InsertRecord("ステーキ");
+
+        // 中華
+        dbadapter.InsertRecord("餃子");
+        dbadapter.InsertRecord("チャーハン");
+
     }
 
     private ArrayList<String> DBtoList(DBAdapter dbAdapter,ArrayList<String> arrayList){

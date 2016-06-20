@@ -13,7 +13,8 @@
         android:id="@+id/txtTerm"
         android:layout_marginBottom="60dp"
         android:layout_alignBottom="@+id/txtResult"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="6dp"/>
 
     <Button
         android:layout_width="match_parent"
@@ -22,7 +23,9 @@
         android:id="@+id/btnSelect"
         android:layout_marginBottom="88dp"
         android:layout_alignParentBottom="true"
-        android:background="@drawable/frame_layout_button" />
+        android:background="@drawable/frame_layout_button"
+        android:layout_marginRight="6dp"
+        android:layout_marginLeft="6dp"/>
 
     <TextView
         android:layout_width="match_parent"
@@ -34,6 +37,7 @@
         android:textAlignment="center"
         android:textSize="35dp"
         android:background="@drawable/frame_layout"
-        />
+        android:layout_marginRight="6dp"
+        android:layout_marginLeft="6dp"/>
 
 </RelativeLayout>
