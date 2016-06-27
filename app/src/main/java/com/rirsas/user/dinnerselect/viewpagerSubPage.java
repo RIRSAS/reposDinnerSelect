@@ -10,14 +10,18 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.SimpleAdapter;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 /**
  * Created by USER on 2016/06/19.
@@ -36,13 +40,14 @@ public class viewpagerSubPage extends Fragment {
         buttonAddMenu = (Button)view.findViewById(R.id.btnAddMenu);
         txtAddItem = (EditText)view.findViewById(R.id.editText);
         lvMenu = (ListView)view.findViewById(R.id.lvMenu);
+
 //        final AlertDialog.Builder alert = new AlertDialog.Builder(MainActivity.context);
         final AlertDialog.Builder alert = new AlertDialog.Builder(viewpagerSubPage.this.getActivity());
 
         txtAddItem.setText("");
 
         final ArrayAdapter<String> adapter = new ArrayAdapter<>(
-//                MainActivity.context, android.R.layout.simple_list_item_1);
+                // MainActivity.context, android.R.layout.simple_list_item_1);
                 viewpagerSubPage.this.getActivity(), android.R.layout.simple_list_item_1);
 
         final DBAdapter dbA = MainActivity.dbAdapter;
@@ -52,7 +57,7 @@ public class viewpagerSubPage extends Fragment {
 
         // リストアダプターをビューへセット
         lvMenu.setAdapter(adapter);
-
+        
         // リスト上のメニュー名を長押しした場合の削除処理
         lvMenu.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override

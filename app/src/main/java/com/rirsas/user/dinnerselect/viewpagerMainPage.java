@@ -61,6 +61,9 @@ public class viewpagerMainPage extends Fragment {
                 strResultText = aList.get(0);
 
                 txtResult.setText(strResultText);
+
+                dbAdapter.UpdateWeight(strResultText);
+
             }
         });
 
@@ -97,6 +100,8 @@ public class viewpagerMainPage extends Fragment {
 
     private ArrayList<String> DBtoList(DBAdapter dbAdapter,ArrayList<String> arrayList){
 
+        int cnt = 0;
+
         arrayList.clear();
 
         dbAdapter.open();
@@ -105,7 +110,12 @@ public class viewpagerMainPage extends Fragment {
 
             if(c.moveToFirst()){
                 do {
-                    arrayList.add(c.getString(c.getColumnIndex("genre_name")));
+                    cnt = c.getInt(c.getColumnIndex("weight"));
+
+                    for (int i = 0; i < cnt; i++){
+                        arrayList.add(c.getString(c.getColumnIndex("genre_name")));
+                    }
+//                    arrayList.add(c.getString(c.getColumnIndex("genre_name")));
                 }while(c.moveToNext());
             }
         }

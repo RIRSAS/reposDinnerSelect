@@ -41,6 +41,7 @@ public class DBAdapter{
                     "(" +
                     "id INTEGER PRIMARY KEY AUTOINCREMENT" +
                     ", genre_name TEXT NOT NULL" +
+                    ", weight INTEGER NOT NULL" +
                     ", created TEXT NOT NULL" +
                     ", modified TEXT " +
                     ")"
@@ -95,9 +96,9 @@ public class DBAdapter{
 
         DateFormat yyyyMMddhhmm = new SimpleDateFormat("yyyy/MM/dd HH:mm");
 
-        Cursor c = GetAllRecord();
-
         boolean flgDuplicate = false;
+
+        Cursor c = GetAllRecord();
 
         if(c.moveToFirst()){
             do{
@@ -110,8 +111,84 @@ public class DBAdapter{
             Date dateNow = new Date();
             ContentValues values = new ContentValues();
             values.put("genre_name",genre_name);
+            values.put("weight",5);
             values.put("created",yyyyMMddhhmm.format(dateNow));
             db.insertOrThrow(TABLE_NAME,null,values);
+        }
+
+    }
+
+    // メニュー選出後の重み更新 選択された:重みを減らす 選択されなかった:重みを増やす
+    public void UpdateWeight(String genre_name){
+
+        open();
+
+        Cursor c = db.query(TABLE_NAME,null,"genre_name = ?", new String[]{genre_name},null,null,null);
+
+        int new_weight = 0;
+
+        if(c.moveToFirst()){
+           new_weight  = c.getInt(c.getColumnIndex("weight"));
+        }
+
+        String whereCaluse = "genre_name = ?";
+
+        String whereArgs[] = new String[1];
+
+        if(new_weight >= 2){
+
+            // update対象用content
+            ContentValues values = new ContentValues();
+
+            // 重みを2減らす
+            values.put("weight", new_weight -2);
+
+            // 選択されたメニューが対象
+            whereArgs[0] = genre_name;
+
+            open();
+
+            try {
+                db.update(TABLE_NAME, values, whereCaluse, whereArgs);
+            } finally {
+                close();
+            }
+
+        }
+
+        open();
+
+        Cursor cUpdate = GetAllRecord();
+
+        String weight_target;
+        int weight_cnt_up;
+        ContentValues values_cnt_up = new ContentValues();
+
+        if(cUpdate.moveToFirst()) {
+
+            try {
+
+                do {
+                    // 今回選択されなかったメニューすべて
+                    if (!cUpdate.getString(cUpdate.getColumnIndex("genre_name")).equals(genre_name)) {
+
+                        weight_target = cUpdate.getString(c.getColumnIndex("genre_name"));
+                        weight_cnt_up = cUpdate.getInt(cUpdate.getColumnIndex("weight"));
+
+                        // 重みを1増やす
+                        values_cnt_up.put("weight", weight_cnt_up + 1);
+
+                        whereArgs[0] = weight_target;
+
+                        open();
+
+                        db.update(TABLE_NAME, values_cnt_up, whereCaluse, whereArgs);
+
+                    }
+                } while (cUpdate.moveToNext());
+            } finally {
+                close();
+            }
         }
 
     }
