@@ -57,6 +57,19 @@ public class viewpagerSubPage extends Fragment {
 
         // リストアダプターをビューへセット
         lvMenu.setAdapter(adapter);
+
+        lvMenu.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id){
+                ListView listView = (ListView)parent;
+
+                String item = listView.getItemAtPosition(position).toString();
+
+//                TODO:UpdateSelectableメソッドを呼び出し有効/無効を反転させる
+//                TODO:項目の色を入れ替える
+
+            }
+        });
         
         // リスト上のメニュー名を長押しした場合の削除処理
         lvMenu.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {

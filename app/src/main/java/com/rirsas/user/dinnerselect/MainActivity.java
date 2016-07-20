@@ -25,14 +25,15 @@ public class MainActivity extends AppCompatActivity {
 //        setContentView(R.layout.activity_main);
         setContentView(R.layout.activity_main_for_viewpager);
 
+        dbAdapter = new DBAdapter(getApplicationContext());
+
+        context = getApplicationContext();
+
         viewpager = (ViewPager) findViewById(R.id.pager);
         viewpager.setAdapter(
                 new ViewPagerAdapter(
                         getSupportFragmentManager()));
 
-        dbAdapter = new DBAdapter(getApplicationContext());
-
-        context = getApplicationContext();
 
     }
 }

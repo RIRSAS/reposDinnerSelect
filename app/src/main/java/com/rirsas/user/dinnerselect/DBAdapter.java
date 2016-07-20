@@ -42,6 +42,7 @@ public class DBAdapter{
                     "id INTEGER PRIMARY KEY AUTOINCREMENT" +
                     ", genre_name TEXT NOT NULL" +
                     ", weight INTEGER NOT NULL" +
+                    ", is_selectable INTEGER NOT NULL" +
                     ", created TEXT NOT NULL" +
                     ", modified TEXT " +
                     ")"
@@ -112,6 +113,7 @@ public class DBAdapter{
             ContentValues values = new ContentValues();
             values.put("genre_name",genre_name);
             values.put("weight",5);
+            values.put("is_selectable",1);
             values.put("created",yyyyMMddhhmm.format(dateNow));
             db.insertOrThrow(TABLE_NAME,null,values);
         }
@@ -189,6 +191,48 @@ public class DBAdapter{
             } finally {
                 close();
             }
+        }
+
+    }
+
+    // 項目の選択状態を切り替える
+    public void UpdateSelectable(String genre_name){
+
+        open();
+
+        Cursor c = db.query(TABLE_NAME,null,"genre_name = ?", new String[]{genre_name},null,null,null);
+
+        int isSelectable = 0;
+
+        if(c.moveToFirst()){
+            isSelectable  = c.getInt(c.getColumnIndex("is_selectable"));
+        }
+
+        String whereCaluse = "genre_name = ?";
+
+        String whereArgs[] = new String[1];
+
+        if(isSelectable == 1){
+            isSelectable = 0;
+        } else {
+            isSelectable = 1;
+        }
+
+        // update対象用content
+        ContentValues values = new ContentValues();
+
+        // 有効/無効を入れ替える
+        values.put("is_selectable", isSelectable);
+
+        // 選択されたメニューが対象
+        whereArgs[0] = genre_name;
+
+        open();
+
+        try {
+            db.update(TABLE_NAME, values, whereCaluse, whereArgs);
+        } finally {
+            close();
         }
 
     }
